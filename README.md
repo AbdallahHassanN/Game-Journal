@@ -1,3 +1,5 @@
+# Description 
+
 # Features
 * You can view a variety of games.
 * On the main page you can view Trending Games, Most Anticipated and The highly rated games on MetaCritic.
