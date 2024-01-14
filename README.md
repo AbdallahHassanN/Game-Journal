@@ -1,4 +1,5 @@
 # Description 
+Welcome to our innovative gaming platform where you can immerse yourself in a diverse array of captivating games. The main page offers a curated experience, showcasing Trending Games, Most Anticipated releases, and the highest-rated gems on MetaCritic. Each game on our platform is presented with an in-depth detail page, encompassing a vivid overview, ESRB rating, relevant tags, development details, release platform information, and a direct link to the game's website. For those curious about a game's series, we provide insights into other titles within the franchise. Navigating through our extensive collection is effortless on the search page. Whether you're searching by title or genre, our user-friendly interface allows seamless exploration, facilitated by pagination to ensure a comprehensive and enjoyable gaming discovery experience.
 
 # Features
 * You can view a variety of games.
