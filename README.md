@@ -19,4 +19,6 @@
 * [RAWG](https://rawg.io/apidocs) api used to return information of the games
 
 # Demo on how to use
+![ezgif-5-c4f6408869](https://github.com/AbdallahHassanN/Game-Journal/assets/81488210/69f20499-2df6-47d6-8a28-6ea75f7d29d9)
+
 
