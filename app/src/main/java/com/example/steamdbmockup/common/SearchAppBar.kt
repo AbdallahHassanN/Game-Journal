@@ -23,9 +23,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -39,11 +44,19 @@ import com.example.steamdbmockup.ui.theme.Grey2
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchAppBar(
-    query:String,
+    query: String,
     onQueryChanged: (String) -> Unit,
-    onExecuteSearch:() -> Unit,
-    onChipsSearch:() -> Unit
+    onExecuteSearch: () -> Unit,
+    onChipsSearch: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+
+    DisposableEffect(Unit) {
+        focusRequester.requestFocus()
+        onDispose { }
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -62,10 +75,12 @@ fun SearchAppBar(
                     },
                     Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(8.dp)
+                        .focusRequester(focusRequester),
                     label = {
                         Text(text = "Search")
                     },
+
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Search,
@@ -82,18 +97,21 @@ fun SearchAppBar(
                     keyboardActions = KeyboardActions(
                         onSearch = {
                             onExecuteSearch()
+                            keyboardController?.hide()
                         },
                     ),
-                    colors = TextFieldDefaults.textFieldColors(
+                    colors = TextFieldDefaults.colors(
                         focusedTextColor = Color.White, // Change text color
                         unfocusedTextColor = Color.White,
-                        containerColor = Grey1, // Change background color
+                        focusedContainerColor = Grey1, // Change background color
+                        unfocusedContainerColor = Grey1,
+                        disabledContainerColor = Grey1,
                         cursorColor = Color.Green, // Change cursor color
                         focusedLeadingIconColor = Color.White,
                         unfocusedLeadingIconColor = Color.White,
                         focusedLabelColor = Color.White,
                         unfocusedLabelColor = Color.White,
-                    )
+                    ),
                 )
             }
             Row(
