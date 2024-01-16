@@ -15,6 +15,8 @@ object Constants {
     const val gamesKey = "games/"
     const val authToken = "games$key"
 
+    val RECENT_SEARCHES_KEY = "recent_searches"
+
 
     const val Ordering_Games ="&ordering=-metacritic&"
     const val Trending_Games = "&dates=2023-01-01,2023-12-31&ordering=-added"
