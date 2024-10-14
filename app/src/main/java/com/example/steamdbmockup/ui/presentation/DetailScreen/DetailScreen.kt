@@ -1,7 +1,6 @@
 package com.example.steamdbmockup.ui.presentation.DetailScreen
 
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -18,13 +19,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.navapp.Screens
+import com.example.steamdbmockup.R
 import com.example.steamdbmockup.common.CircularProgressBar
-import com.example.steamdbmockup.common.Constants.TAG
-import com.example.steamdbmockup.common.RowGameList
 import com.example.steamdbmockup.common.GameView
+import com.example.steamdbmockup.common.RowGameCard
 import com.example.steamdbmockup.ui.theme.Grey2
 
 
@@ -34,56 +37,61 @@ fun DetailScreen(
     viewModel: DetailScreenViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val loading = viewModel.loading.value
-    val game = viewModel.CurrentGame.value
-    val seriesGames = viewModel.RelatedGames.value
+    val getGameLoading = viewModel.getGameLoading.value
+    val getRelatedGamesLoading = viewModel.getRelatedGamesLoading.value
+    val game = viewModel.currentGame.value
+    val seriesGames = viewModel.relatedGames.value
 
-    if (id != null) {
+    LaunchedEffect(key1 = id, block = {
+        viewModel.getGameById(id)
+        viewModel.getRelatedGames(id)
+    })
 
-        LaunchedEffect(key1 = id, block = {
-            viewModel.getGameById(id)
-            viewModel.getRelatedGames(id)
-        })
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Grey2)
-                .verticalScroll(rememberScrollState())
-        ) {
-            if (game != null) {
-                Column {
-                    GameView(game = game, loading = loading)
-                }
-                if (seriesGames.isNotEmpty()) {
-                    Row {
-                        Log.d(TAG, "Series = $seriesGames")
-                        Text(
-                            text = "Related Games",
-                            modifier = Modifier
-                                .wrapContentWidth(Alignment.Start)
-                                .padding(10.dp),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = Color.White
-                        )
-                    }
-                    Row(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Grey2)
+            .verticalScroll(rememberScrollState())
+    ) {
+        if (game != null) {
+            Column {
+                GameView(game = game, loading = getGameLoading)
+            }
+            if (seriesGames.isNotEmpty()) {
+                Row {
+                    Text(
+                        text = stringResource(id = R.string.related_games),
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        RowGameList(
-                            loading = loading, gameList = seriesGames,
-                            navController = navController
-                        )
+                            .wrapContentWidth(Alignment.Start)
+                            .padding(10.dp),
+                        style = MaterialTheme.typography.titleLarge,
+                        color = Color.White
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    LazyRow {
+                        if (getRelatedGamesLoading) {
+                            item { CircularProgressBar() }
+                        } else {
+                            itemsIndexed(
+                                items = seriesGames
+                            ) { _, game ->
+                                RowGameCard(game = game, onClick = {
+                                    navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                                })
+                            }
+                        }
                     }
                 }
-            } else {
-                Log.d(TAG, "Not Found")
             }
         }
-        CircularProgressBar(isDisplayed = loading)
     }
+    CircularProgressBar(isDisplayed = getGameLoading)
+
 }
 
 

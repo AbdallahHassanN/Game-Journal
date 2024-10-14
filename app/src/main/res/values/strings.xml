@@ -3,4 +3,5 @@
     <string name="trending_games">Trending Games</string>
     <string name="most_anticipated_games">Most Anticipated Games</string>
     <string name="high_rated_games">Highly Rated Games</string>
+    <string name="related_games">Related Games</string>
 </resources>

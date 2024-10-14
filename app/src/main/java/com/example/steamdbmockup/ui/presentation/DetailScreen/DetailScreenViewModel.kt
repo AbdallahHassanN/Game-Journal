@@ -7,14 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.steamdbmockup.common.Constants
 import com.example.steamdbmockup.model.Result
-import com.example.steamdbmockup.model.results
 import com.example.steamdbmockup.model2.game
-import com.example.steamdbmockup.network.response.GameResponse
 import com.example.steamdbmockup.network.response.Resource
-import com.example.steamdbmockup.network.response.SingleGameResponse
 import com.example.steamdbmockup.useCases.GetGameByIdUseCase
 import com.example.steamdbmockup.useCases.GetRelatedGamesUseCase
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -27,12 +23,13 @@ class DetailScreenViewModel
     private val getRelatedGamesUseCase: GetRelatedGamesUseCase
 ): ViewModel() {
 
-    val CurrentGame: MutableState<game?> = mutableStateOf(null)
-    val RelatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
-    val loading = mutableStateOf(false)
+    val currentGame: MutableState<game?> = mutableStateOf(null)
+    val relatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val getGameLoading = mutableStateOf(false)
+    val getRelatedGamesLoading = mutableStateOf(false)
 
     fun getGameById(id:Int) = viewModelScope.launch {
-        loading.value = true
+        getGameLoading.value = true
         getGameIdUseCase.execute(
             id = id
         ).catch {
@@ -44,20 +41,20 @@ class DetailScreenViewModel
                     Log.d(Constants.TAG, "Error response")
                 }
                 is Resource.Loading -> {
-                    loading.value = true
+                    getGameLoading.value = true
                     Log.d(Constants.TAG, "Loading")
                 }
                 is Resource.Success -> {
-                    CurrentGame.value = response.data!!
-                    Log.d(Constants.TAG, "dataView ${CurrentGame.value}")
-                    loading.value = false
+                    currentGame.value = response.data!!
+                    Log.d(Constants.TAG, "dataView ${currentGame.value}")
+                    getGameLoading.value = false
                 }
             }
         }
     }
 
     fun getRelatedGames(id:Int) = viewModelScope.launch {
-        loading.value = true
+        getRelatedGamesLoading.value = true
         getRelatedGamesUseCase.execute(
             id = id
         ).catch {
@@ -65,16 +62,16 @@ class DetailScreenViewModel
         }.collect{ response ->
             when(response) {
                 is Resource.Error -> {
-                    loading.value = false
+                    getRelatedGamesLoading.value = false
                     Log.d(Constants.TAG, "Error response")
                 }
                 is Resource.Loading -> {
-                    loading.value = true
+                    getRelatedGamesLoading.value = true
                     Log.d(Constants.TAG, "Loading")
                 }
                 is Resource.Success -> {
-                    RelatedGames.value = response.data!!
-                    loading.value = false
+                    relatedGames.value = response.data!!
+                    getRelatedGamesLoading.value = false
                 }
             }
         }
