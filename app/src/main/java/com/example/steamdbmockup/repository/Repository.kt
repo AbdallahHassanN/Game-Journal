@@ -2,6 +2,7 @@ package com.example.steamdbmockup.repository
 
 
 import com.example.steamdbmockup.model2.game
+import com.example.steamdbmockup.model2.screenshots.Screenshots
 import com.example.steamdbmockup.network.response.GameResponse
 import com.example.steamdbmockup.network.response.Resource
 import kotlinx.coroutines.flow.Flow
@@ -31,4 +32,6 @@ interface Repository {
     suspend fun getRelatedGames(id: Int)
             : Flow<Resource<GameResponse>>
 
+    suspend fun getGameScreenshots(id: Int)
+            : Flow<Resource<Screenshots>>
 }

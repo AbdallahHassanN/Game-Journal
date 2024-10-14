@@ -2,16 +2,12 @@ package com.example.steamdbmockup.ui.presentation.DetailScreen
 
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,38 +37,34 @@ fun DetailScreen(
     val getRelatedGamesLoading = viewModel.getRelatedGamesLoading.value
     val game = viewModel.currentGame.value
     val seriesGames = viewModel.relatedGames.value
+    val gameScreenshots = viewModel.currentGameScreenshots.value
 
     LaunchedEffect(key1 = id, block = {
         viewModel.getGameById(id)
         viewModel.getRelatedGames(id)
+        viewModel.getGameScreenshots(id)
     })
 
-    Column(
+    LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
             .background(Grey2)
-            .verticalScroll(rememberScrollState())
     ) {
         if (game != null) {
-            Column {
-                GameView(game = game, loading = getGameLoading)
+            item {
+                GameView(game = game, loading = getGameLoading, gameScreenshots = gameScreenshots)
             }
             if (seriesGames.isNotEmpty()) {
-                Row {
-                    Text(
-                        text = stringResource(id = R.string.related_games),
-                        modifier = Modifier
-                            .wrapContentWidth(Alignment.Start)
-                            .padding(10.dp),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = Color.White
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
+                item {
+                    Row {
+                        Text(
+                            text = stringResource(id = R.string.related_games),
+                            modifier = Modifier
+                                .wrapContentWidth(Alignment.Start)
+                                .padding(10.dp),
+                            style = MaterialTheme.typography.titleLarge,
+                            color = Color.White
+                        )
+                    }
                     LazyRow {
                         if (getRelatedGamesLoading) {
                             item { CircularProgressBar() }
@@ -91,7 +83,6 @@ fun DetailScreen(
         }
     }
     CircularProgressBar(isDisplayed = getGameLoading)
-
 }
 
 

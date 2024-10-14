@@ -3,6 +3,7 @@ package com.example.steamdbmockup.repository
 import android.content.Context
 import com.example.steamdbmockup.common.handleResponse
 import com.example.steamdbmockup.model2.game
+import com.example.steamdbmockup.model2.screenshots.Screenshots
 import com.example.steamdbmockup.network.GameService
 import com.example.steamdbmockup.network.response.GameResponse
 import com.example.steamdbmockup.network.response.Resource
@@ -116,6 +117,21 @@ class Repository_Impl(
     override suspend fun getRelatedGames(id: Int): Flow<Resource<GameResponse>> {
         return try {
             val response = gameService.getRelatedGames(id)
+            handleResponse(response, appContext)
+        } catch (e: UnknownHostException) {
+            flow {
+                emit(Resource.Error("No internet connection"))
+            }
+        } catch (e: Exception) {
+            flow {
+                emit(Resource.Error("An unexpected error occurred"))
+            }
+        }
+    }
+
+    override suspend fun getGameScreenshots(id: Int): Flow<Resource<Screenshots>> {
+        return try {
+            val response = gameService.getGameScreenshots(id)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {

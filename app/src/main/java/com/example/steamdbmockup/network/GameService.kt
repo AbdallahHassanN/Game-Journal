@@ -7,6 +7,7 @@ import com.example.steamdbmockup.common.Constants.authToken
 import com.example.steamdbmockup.common.Constants.gamesKey
 import com.example.steamdbmockup.common.Constants.key
 import com.example.steamdbmockup.model2.game
+import com.example.steamdbmockup.model2.screenshots.Screenshots
 import com.example.steamdbmockup.network.response.GameResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -51,5 +52,8 @@ interface GameService {
         @Path("id") id:Int
     ) : Response<GameResponse>
 
-
+    @GET("$gamesKey{id}/screenshots$key")
+    suspend fun getGameScreenshots(
+        @Path("id") id:Int
+    ) : Response<Screenshots>
 }

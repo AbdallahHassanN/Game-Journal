@@ -55,8 +55,23 @@ class SearchScreenViewModel
 
 
         val response = when (searchType) {
-            SearchType.BY_NAME -> getGameByNameUseCase.execute(_query.value, CurrentPageName)
-            SearchType.BY_GENRE -> getGameByGenreUseCase.execute(_query.value, CurrentPageGenre)
+            SearchType.BY_NAME -> {
+                if (_query.value == _lastQuery) {
+                    getGameByNameUseCase.execute(_query.value, CurrentPageName)
+                } else {
+                    CurrentPageName = 1
+                    getGameByNameUseCase.execute(_query.value, CurrentPageName)
+                }
+            }
+
+            SearchType.BY_GENRE -> {
+                if (_query.value == _lastQuery) {
+                    getGameByGenreUseCase.execute(_query.value, CurrentPageGenre)
+                } else {
+                    CurrentPageGenre = 1
+                    getGameByGenreUseCase.execute(_query.value, CurrentPageGenre)
+                }
+            }
         }
 
         response.catch {
@@ -68,7 +83,9 @@ class SearchScreenViewModel
                     loading.value = true
                     Log.d(TAG, "Loading")
                 }
+
                 is Resource.Success -> {
+                    Log.d("Search Error", "${_query.value} and $_lastQuery")
                     if (_query.value == _lastQuery) {
                         if (searchType == SearchType.BY_NAME) {
                             CurrentPageGenre = 1
@@ -81,7 +98,6 @@ class SearchScreenViewModel
                         if (searchType == SearchType.BY_NAME) {
                             CurrentPageName = 1
                             _gamesByName.value = resource.data ?: emptyList()
-
                         } else {
                             CurrentPageGenre = 1
                             _gamesByGenre.value = resource.data ?: emptyList()
@@ -94,6 +110,7 @@ class SearchScreenViewModel
         }
         _currentSearchType.value = searchType
     }
+
     fun onQueryChanged(newQuery: String) {
         _query.value = newQuery
     }
