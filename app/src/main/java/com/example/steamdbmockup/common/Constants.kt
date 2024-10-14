@@ -19,9 +19,7 @@ object Constants {
 
 
     const val Ordering_Games ="&ordering=-metacritic&"
-    const val Trending_Games = "&dates=2023-01-01,2023-12-31&ordering=-added"
     const val Most_Anticipated_Games ="&dates=2024-01-01,2026-01-01&ordering=-added"
-    const val High_Rated_Games = "&dates=2015-01-01,2023-12-31&ordering=-rating&platforms=1"
     const val Related_Games= "/game-series"
 
     const val GAME_ID = "gameId"

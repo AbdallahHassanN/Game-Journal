@@ -25,39 +25,41 @@ import androidx.compose.ui.unit.dp
 fun RoundedRectWithCenteredText(
     meta:String,
     backgroundColor:Color
-){
-    Canvas(modifier = Modifier
+) {
+    Canvas(
+        modifier = Modifier
             .fillMaxWidth()
             .padding(start = 8.dp, top = 8.dp, bottom = 16.dp)
-            .background(Color.Transparent)) {
-            val rectSize = Size(200f,100f)
+            .background(Color.Transparent)
+    ) {
+        val rectSize = Size(200f, 100f)
 
-            //val rectTopLeft = Offset(50f,
-            //    (size.height - rectSize.height)/2)
+        //val rectTopLeft = Offset(50f,
+        //    (size.height - rectSize.height)/2)
 
-            val rectTopLeft = Offset(
-                size.width - rectSize.width - 50f,
-                (size.height - rectSize.height) / 2 + 50f
-            )
+        val rectTopLeft = Offset(
+            size.width - rectSize.width - 50f,
+            (size.height - rectSize.height) / 2 + 50f
+        )
 
-            drawRoundRect(
-                color = backgroundColor,
-                topLeft = rectTopLeft,
-                cornerRadius = CornerRadius(20f,40f),
-                size = rectSize
-            )
-            drawIntoCanvas {
-                val text = "$meta"
-                val textPaint = Paint().apply {
-                    color = android.graphics.Color.WHITE
-                    textSize = 50f
-                    textAlign = Paint.Align.CENTER
-                }
-                val x = rectTopLeft.x + rectSize.width / 2
-                val y = rectTopLeft.y + rectSize.height / 2
-                    + (textPaint.descent() - textPaint.ascent()) / 2 - textPaint.descent()
-
-                drawContext.canvas.nativeCanvas.drawText(text,x,y,textPaint)
+        drawRoundRect(
+            color = backgroundColor,
+            topLeft = rectTopLeft,
+            cornerRadius = CornerRadius(20f, 40f),
+            size = rectSize
+        )
+        drawIntoCanvas {
+            val text = "$meta"
+            val textPaint = Paint().apply {
+                color = android.graphics.Color.WHITE
+                textSize = 50f
+                textAlign = Paint.Align.CENTER
             }
+            val x = rectTopLeft.x + rectSize.width / 2
+            val y = rectTopLeft.y + rectSize.height / 2
+            +(textPaint.descent() - textPaint.ascent()) / 2 - textPaint.descent()
+
+            drawContext.canvas.nativeCanvas.drawText(text, x, y, textPaint)
         }
     }
+}

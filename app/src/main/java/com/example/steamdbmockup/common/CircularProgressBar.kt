@@ -7,22 +7,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
 fun CircularProgressBar(
-    isDisplayed:Boolean
-){
-    if(isDisplayed) {
+    isDisplayed: Boolean? = true
+) {
+    if (isDisplayed == true) {
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            val (progressBar,text) = createRefs()
+            val (progressBar, text) = createRefs()
             CircularProgressIndicator(
-                modifier = Modifier.
-                constrainAs(progressBar)
+                modifier = Modifier.constrainAs(progressBar)
                 {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
@@ -36,7 +36,7 @@ fun CircularProgressBar(
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 15.sp
                 ),
-                modifier = Modifier.constrainAs(text){
+                modifier = Modifier.constrainAs(text) {
                     top.linkTo(progressBar.bottom)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
@@ -44,4 +44,9 @@ fun CircularProgressBar(
             )
         }
     }
+}
+@Preview
+@Composable
+fun CircularProgressBarPreview() {
+    CircularProgressBar(isDisplayed = true)
 }

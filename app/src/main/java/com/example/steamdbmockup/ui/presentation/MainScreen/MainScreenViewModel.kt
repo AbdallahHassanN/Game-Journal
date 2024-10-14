@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.steamdbmockup.common.Constants.TAG
+import com.example.steamdbmockup.common.DateUtils
 import com.example.steamdbmockup.model.Result
 import com.example.steamdbmockup.network.response.Resource
 import com.example.steamdbmockup.useCases.GetHighRatedGamesUseCase
@@ -28,8 +29,11 @@ class MainScreenViewModel
     val MostAnticipatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
     val HighRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
 
+    val formattedDate = DateUtils.getDateRangeFromStartOfYear()
 
-    val loading = mutableStateOf(false)
+    val trendingLoading = mutableStateOf(false)
+    val mostAnticipatedLoading = mutableStateOf(false)
+    val highRatedLoading = mutableStateOf(false)
 
     init {
         getTrendingGames()
@@ -38,28 +42,31 @@ class MainScreenViewModel
     }
 
     private fun getTrendingGames() = viewModelScope.launch {
-        loading.value = true
+        trendingLoading.value = true
         getTrendingGamesUseCase.execute(
+            formattedDate
         ).catch {
             Log.d(TAG,"Error ${it.message}")
         }.collect{ response ->
             when(response) {
                 is Resource.Error ->  Log.d(TAG,"Error response")
                 is Resource.Loading -> {
-                    loading.value = true
+                    trendingLoading.value = true
                     Log.d(TAG, "Loading")
                 }
                 is Resource.Success -> {
                     TrendingGames.value = response.data!!
                     Log.d(TAG, "dataView ${TrendingGames.value}")
-                    loading.value = false
+                    trendingLoading.value = false
                 }
             }
         }
     }
 
-    private fun getMostAnticipatedGames() = viewModelScope.launch {
-        loading.value = true
+    private fun getMostAnticipatedGames(
+
+    ) = viewModelScope.launch {
+        mostAnticipatedLoading.value = true
         getMostAnticipatedGamesUseCase.execute(
         ).catch {
             Log.d(TAG,"Error ${it.message}")
@@ -67,34 +74,35 @@ class MainScreenViewModel
             when(response) {
                 is Resource.Error ->  Log.d(TAG,"Error response")
                 is Resource.Loading -> {
-                    loading.value = true
+                    mostAnticipatedLoading.value = true
                     Log.d(TAG, "Loading")
                 }
                 is Resource.Success -> {
                     MostAnticipatedGames.value = response.data!!
                     Log.d(TAG, "dataView ${MostAnticipatedGames.value}")
-                    loading.value = false
+                    mostAnticipatedLoading.value = false
                 }
             }
         }
     }
 
     private fun getHighRatedGames() = viewModelScope.launch {
-        loading.value = true
+        highRatedLoading.value = true
         getHighRatedGamesUseCase.execute(
+            formattedDate
         ).catch {
             Log.d(TAG,"Error ${it.message}")
         }.collect{ response ->
             when(response) {
                 is Resource.Error ->  Log.d(TAG,"Error response")
                 is Resource.Loading -> {
-                    loading.value = true
+                    highRatedLoading.value = true
                     Log.d(TAG, "Loading")
                 }
                 is Resource.Success -> {
                     HighRatedGames.value = response.data!!
                     Log.d(TAG, "dataView ${HighRatedGames.value}")
-                    loading.value = false
+                    highRatedLoading.value = false
                 }
             }
         }

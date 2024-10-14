@@ -15,9 +15,9 @@ class Repository_Impl(
     private val appContext: Context
 ): Repository {
 
-    override suspend fun getTrendingGames(): Flow<Resource<GameResponse>> {
+    override suspend fun getTrendingGames(dates:String): Flow<Resource<GameResponse>> {
         return try {
-            val response = gameService.getTrendingGames()
+            val response = gameService.getTrendingGames(dates)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {
@@ -47,9 +47,11 @@ class Repository_Impl(
     }
 
 
-    override suspend fun getHighRatedGames(): Flow<Resource<GameResponse>> {
+    override suspend fun getHighRatedGames(
+        dates: String
+        ): Flow<Resource<GameResponse>> {
         return try {
-            val response = gameService.getHighRatedGames()
+            val response = gameService.getHighRatedGames(dates)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {

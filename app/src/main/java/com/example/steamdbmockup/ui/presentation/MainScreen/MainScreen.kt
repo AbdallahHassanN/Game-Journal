@@ -1,23 +1,24 @@
 package com.example.steamdbmockup.ui.presentation.MainScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.navapp.Screens
+import com.example.steamdbmockup.R
 import com.example.steamdbmockup.common.CircularProgressBar
-import com.example.steamdbmockup.common.Constants.TAG
-import com.example.steamdbmockup.common.RowGameList
+import com.example.steamdbmockup.common.RowGameCard
+import com.example.steamdbmockup.common.TextTitle
 import com.example.steamdbmockup.common.TopBar
 import com.example.steamdbmockup.ui.theme.Grey2
 
@@ -26,66 +27,88 @@ fun MainScreen(
     navController: NavController,
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
-    val Trendinggames = viewModel.TrendingGames.value
-    val MostAnticipatedgames = viewModel.MostAnticipatedGames.value
-    val HighRatedgames = viewModel.HighRatedGames.value
-    val loading = viewModel.loading.value
+    val trendingGames = viewModel.TrendingGames.value
+    val mostAnticipatedGames = viewModel.MostAnticipatedGames.value
+    val highRatedGames = viewModel.HighRatedGames.value
+    val trendingLoading = viewModel.trendingLoading.value
+    val mostAnticipatedLoading = viewModel.mostAnticipatedLoading.value
+    val highRatedLoading = viewModel.highRatedLoading.value
 
-
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(Grey2)
+            .padding(bottom = 20.dp)
     ) {
-        TopBar(navController)
-        Text(
-            text = "Trending Games",
-            color = Color.White,
-            fontSize = 20.sp,
-            modifier = Modifier
-                .padding(10.dp)
-        )
-        Row {
-            RowGameList(
-                gameList = Trendinggames,
-                navController = navController, loading = loading
-            )
-            CircularProgressBar(isDisplayed = loading)
-
-            Log.d(TAG, "Main $Trendinggames")
+        item {
+            TopBar(navController)
         }
-        Row {
-            Text(
-                text = "Most Anticipated Games",
-                color = Color.White,
-                fontSize = 20.sp,
-                modifier = Modifier
-                    .padding(10.dp)
+        item {
+            TextTitle(
+                text = stringResource(id = R.string.trending_games),
+                modifier = Modifier.padding(10.dp),
+                fontSize = 20,
+                color = Color.White
             )
+            LazyRow {
+                if (trendingLoading) {
+                    item { CircularProgressBar() }
+                } else {
+                    itemsIndexed(
+                        items = trendingGames
+                    ) { _, game ->
+                        RowGameCard(game = game, onClick = {
+                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                        })
+                    }
+                }
+            }
         }
-        Row {
-            RowGameList(
-                loading = loading, gameList = MostAnticipatedgames,
-                navController = navController
-            )
-            CircularProgressBar(isDisplayed = loading)
-
+        item {
+            Row {
+                TextTitle(
+                    text = stringResource(id = R.string.most_anticipated_games),
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 20,
+                    color = Color.White
+                )
+            }
+            LazyRow {
+                if (mostAnticipatedLoading) {
+                    item { CircularProgressBar() }
+                } else {
+                    itemsIndexed(
+                        items = mostAnticipatedGames
+                    ) { _, game ->
+                        RowGameCard(game = game, onClick = {
+                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                        })
+                    }
+                }
+            }
         }
-        Row {
-            Text(
-                text = "Highly Rated Games",
-                color = Color.White,
-                fontSize = 20.sp,
-                modifier = Modifier
-                    .padding(10.dp)
-            )
-        }
-        Row {
-            RowGameList(
-                loading = loading,
-                gameList = HighRatedgames, navController = navController
-            )
-            CircularProgressBar(isDisplayed = loading)
+        item {
+            Row {
+                TextTitle(
+                    text = stringResource(id = R.string.high_rated_games),
+                    modifier = Modifier.padding(10.dp),
+                    fontSize = 20,
+                    color = Color.White
+                )
+            }
+            LazyRow {
+                if (highRatedLoading) {
+                    item { CircularProgressBar() }
+                } else {
+                    itemsIndexed(
+                        items = highRatedGames
+                    ) { _, game ->
+                        RowGameCard(game = game, onClick = {
+                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                        })
+                    }
+                }
+            }
         }
     }
 }

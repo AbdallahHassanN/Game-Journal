@@ -16,23 +16,24 @@ class GetTrendingGamesUseCase
     @ApplicationContext private val context: Context
 ) {
     suspend fun execute(
-    )  = repo.getTrendingGames()
-        .flatMapConcat { it ->
-            when(it)  {
+        dates:String
+    )  = repo.getTrendingGames(dates)
+        .flatMapConcat { trendingGames ->
+            when(trendingGames)  {
                 is Resource.Error -> {
-                    Log.d(TAG,"UseCase Error ? ${it.message.toString()}")
-                    flowOf(Resource.Error(it.message.toString()))
+                    Log.d(TAG,"UseCase Error ? ${trendingGames.message.toString()}")
+                    flowOf(Resource.Error(trendingGames.message.toString()))
                 }
                 is Resource.Loading -> {
                     Log.d(TAG,"UseCase Loading ?")
                     flowOf(Resource.Loading())
                 }
                 is Resource.Success -> {
-                    Log.d(TAG,"UseCase Success ? ${it.data!!.games}")
+                    Log.d(TAG,"UseCase Success ? ${trendingGames.data!!.games}")
                     /*flowOf(Resource.Success(it.data.games.map {
                         it.map()
                     }))*/
-                    flowOf(Resource.Success(it.data.games))
+                    flowOf(Resource.Success(trendingGames.data.games))
                 }
             }
         }

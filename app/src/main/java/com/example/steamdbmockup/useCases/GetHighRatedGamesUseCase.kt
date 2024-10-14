@@ -16,20 +16,22 @@ class GetHighRatedGamesUseCase
     @ApplicationContext private val context: Context
 ) {
     suspend fun execute(
-    )  = repo.getHighRatedGames()
-        .flatMapConcat { it ->
-            when(it)  {
+        dates:String
+    )  = repo.getHighRatedGames(
+        dates = dates
+    ).flatMapConcat { highRatedGames ->
+            when(highRatedGames)  {
                 is Resource.Error -> {
-                    Log.d(Constants.TAG,"UseCase Error ? ${it.message.toString()}")
-                    flowOf(Resource.Error(it.message.toString()))
+                    Log.d(Constants.TAG,"UseCase Error ? ${highRatedGames.message.toString()}")
+                    flowOf(Resource.Error(highRatedGames.message.toString()))
                 }
                 is Resource.Loading -> {
                     Log.d(Constants.TAG,"UseCase Loading ?")
                     flowOf(Resource.Loading())
                 }
                 is Resource.Success -> {
-                    Log.d(Constants.TAG,"UseCase Success ? ${it.data!!.games}")
-                    flowOf(Resource.Success(it.data.games))
+                    Log.d(Constants.TAG,"UseCase Success ? ${highRatedGames.data!!.games}")
+                    flowOf(Resource.Success(highRatedGames.data.games))
                 }
             }
         }
