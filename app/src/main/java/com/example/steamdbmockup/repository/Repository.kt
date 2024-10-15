@@ -1,6 +1,7 @@
 package com.example.steamdbmockup.repository
 
 
+import com.example.steamdbmockup.model2.Developer
 import com.example.steamdbmockup.model2.game
 import com.example.steamdbmockup.model2.screenshots.Screenshots
 import com.example.steamdbmockup.network.response.GameResponse
@@ -18,7 +19,7 @@ interface Repository {
 
     suspend fun getHighRatedGames(
         dates: String
-    )       : Flow<Resource<GameResponse>>
+    ): Flow<Resource<GameResponse>>
 
     suspend fun getByName(query: String, page: Int)
             : Flow<Resource<GameResponse>>
@@ -34,4 +35,7 @@ interface Repository {
 
     suspend fun getGameScreenshots(id: Int)
             : Flow<Resource<Screenshots>>
+
+    suspend fun getDeveloperInfo(id: Int)
+            : Flow<Resource<Developer>>
 }

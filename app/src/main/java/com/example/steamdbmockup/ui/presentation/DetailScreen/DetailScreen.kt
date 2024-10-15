@@ -51,7 +51,10 @@ fun DetailScreen(
     ) {
         if (game != null) {
             item {
-                GameView(game = game, loading = getGameLoading, gameScreenshots = gameScreenshots)
+                GameView(game = game, loading = getGameLoading,
+                    gameScreenshots = gameScreenshots, onDevClicked = {
+                        navController.navigate(Screens.DeveloperScreen.withArgs(it))
+                    })
             }
             if (seriesGames.isNotEmpty()) {
                 item {

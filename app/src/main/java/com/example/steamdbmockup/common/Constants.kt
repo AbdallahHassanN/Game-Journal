@@ -23,5 +23,5 @@ object Constants {
     const val Related_Games= "/game-series"
 
     const val GAME_ID = "gameId"
-
+    const val Developer_ID = "developerId"
 }

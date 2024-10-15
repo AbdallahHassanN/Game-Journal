@@ -3,6 +3,7 @@ package com.example.steamdbmockup.common
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +38,8 @@ import com.example.steamdbmockup.ui.theme.Grey2
 fun GameView(
     game: game,
     loading: Boolean,
-    gameScreenshots: List<gameScreenshots?>
+    gameScreenshots: List<gameScreenshots?>,
+    onDevClicked: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -136,18 +138,20 @@ fun GameView(
         ) {
             item {
                 game.developers.let { dev ->
-                    for (developer in dev)
+                    for (developer in dev) {
                         Text(
                             text = "By ${developer.name}",
                             modifier = Modifier
                                 .wrapContentWidth(Alignment.Start)
-                                .padding(10.dp),
+                                .padding(10.dp)
+                                .clickable { onDevClicked(developer.id) },
                             style = MaterialTheme.typography.labelLarge,
                             color = Color.White
                         )
+                    }
                 }
                 Text(
-                    text = "Rated: ${game.esrb_rating.name}",
+                    text = "Rated: ${game.esrb_rating?.name}",
                     modifier = Modifier
                         .wrapContentWidth(Alignment.End)
                         .padding(10.dp),

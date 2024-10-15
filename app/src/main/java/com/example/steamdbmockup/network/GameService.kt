@@ -6,6 +6,7 @@ import com.example.steamdbmockup.common.Constants.Related_Games
 import com.example.steamdbmockup.common.Constants.authToken
 import com.example.steamdbmockup.common.Constants.gamesKey
 import com.example.steamdbmockup.common.Constants.key
+import com.example.steamdbmockup.model2.Developer
 import com.example.steamdbmockup.model2.game
 import com.example.steamdbmockup.model2.screenshots.Screenshots
 import com.example.steamdbmockup.network.response.GameResponse
@@ -56,4 +57,9 @@ interface GameService {
     suspend fun getGameScreenshots(
         @Path("id") id:Int
     ) : Response<Screenshots>
+
+    @GET("developers/{id}$key")
+    suspend fun getDevelopersInfo(
+        @Path("id") id:Int
+    ) : Response<Developer>
 }
