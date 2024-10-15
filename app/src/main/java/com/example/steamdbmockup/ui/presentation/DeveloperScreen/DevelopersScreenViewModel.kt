@@ -1,4 +1,4 @@
-package com.example.steamdbmockup.ui.presentation
+package com.example.steamdbmockup.ui.presentation.DeveloperScreen
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
@@ -6,16 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.steamdbmockup.common.Constants
-import com.example.steamdbmockup.model.Result
 import com.example.steamdbmockup.model2.Developer
-import com.example.steamdbmockup.model2.game
-import com.example.steamdbmockup.model2.screenshots.Screenshots
-import com.example.steamdbmockup.model2.screenshots.gameScreenshots
 import com.example.steamdbmockup.network.response.Resource
 import com.example.steamdbmockup.useCases.GetDevelopersInfoUseCase
-import com.example.steamdbmockup.useCases.GetGameByIdUseCase
-import com.example.steamdbmockup.useCases.GetGameScreenshotsUseCase
-import com.example.steamdbmockup.useCases.GetRelatedGamesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch

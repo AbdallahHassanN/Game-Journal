@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import com.example.steamdbmockup.common.Constants.Developer_ID
 import com.example.steamdbmockup.common.Constants.GAME_ID
 import com.example.steamdbmockup.ui.presentation.DetailScreen.DetailScreen
-import com.example.steamdbmockup.ui.presentation.DeveloperScreen
+import com.example.steamdbmockup.ui.presentation.DeveloperScreen.DeveloperScreen
 import com.example.steamdbmockup.ui.presentation.MainScreen.MainScreen
 import com.example.steamdbmockup.ui.presentation.SearchScreen.SearchScreen
 

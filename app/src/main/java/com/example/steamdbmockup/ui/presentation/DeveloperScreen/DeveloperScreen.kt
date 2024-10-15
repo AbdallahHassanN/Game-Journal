@@ -1,4 +1,4 @@
-package com.example.steamdbmockup.ui.presentation
+package com.example.steamdbmockup.ui.presentation.DeveloperScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxHeight
