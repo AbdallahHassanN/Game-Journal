@@ -24,4 +24,6 @@ object Constants {
 
     const val GAME_ID = "gameId"
     const val Developer_ID = "developerId"
+    const val Count = "count"
+
 }

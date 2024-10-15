@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1058231611477",
+    "project_id": "gamejournal-47371",
+    "storage_bucket": "gamejournal-47371.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058231611477:android:86d43881ab575f497c24dc",
+        "android_client_info": {
+          "package_name": "com.example.steamdbmockup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaY_Ff_ja9FRpJRQt7KcIbh_mMxfDWdXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

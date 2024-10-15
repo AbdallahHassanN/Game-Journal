@@ -2,6 +2,7 @@ package com.example.steamdbmockup.repository
 
 
 import com.example.steamdbmockup.model2.Developer
+import com.example.steamdbmockup.model2.achievements.Achievements
 import com.example.steamdbmockup.model2.game
 import com.example.steamdbmockup.model2.screenshots.Screenshots
 import com.example.steamdbmockup.network.response.GameResponse
@@ -38,4 +39,7 @@ interface Repository {
 
     suspend fun getDeveloperInfo(id: Int)
             : Flow<Resource<Developer>>
+
+    suspend fun getGameAchievements(id: Int)
+            : Flow<Resource<Achievements>>
 }

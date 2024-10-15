@@ -54,6 +54,12 @@ fun DetailScreen(
                 GameView(game = game, loading = getGameLoading,
                     gameScreenshots = gameScreenshots, onDevClicked = {
                         navController.navigate(Screens.DeveloperScreen.withArgs(it))
+                    }, onAchievementClicked = { gameId, count ->
+                        navController.navigate(
+                            Screens.AchievementsScreen.withArgs(
+                                gameId, count
+                            )
+                        )
                     })
             }
             if (seriesGames.isNotEmpty()) {

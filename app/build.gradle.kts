@@ -6,6 +6,7 @@ plugins {
     id ("kotlin-kapt")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -108,4 +109,8 @@ dependencies {
 
     implementation("androidx.paging:paging-runtime:3.2.0-alpha06")
     implementation("androidx.paging:paging-compose:1.0.0-alpha20")
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-inappmessaging-display")
+
 }

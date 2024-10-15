@@ -30,6 +30,7 @@ import com.example.steamdbmockup.common.Constants.IMAGE_HEIGHT
 import com.example.steamdbmockup.model2.game
 import com.example.steamdbmockup.model2.screenshots.gameScreenshots
 import com.example.steamdbmockup.network.util.loadPicture
+import com.example.steamdbmockup.ui.theme.Blue500
 import com.example.steamdbmockup.ui.theme.Grey1
 import com.example.steamdbmockup.ui.theme.Grey2
 
@@ -39,7 +40,8 @@ fun GameView(
     game: game,
     loading: Boolean,
     gameScreenshots: List<gameScreenshots?>,
-    onDevClicked: (Int) -> Unit = {}
+    onDevClicked: (Int) -> Unit = {},
+    onAchievementClicked: (Int,Int) -> Unit = {_,_->}
 ) {
     Column(
         modifier = Modifier
@@ -158,6 +160,17 @@ fun GameView(
                     style = MaterialTheme.typography.labelLarge,
                     color = Color.White
                 )
+                if(game.achievements_count >= 1 ){
+                    Text(
+                        text = "View Achievements",
+                        modifier = Modifier
+                            .wrapContentWidth(Alignment.End)
+                            .padding(10.dp)
+                            .clickable { onAchievementClicked(game.id,game.achievements_count)},
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Blue500
+                    )
+                }
             }
         }
         Row {
