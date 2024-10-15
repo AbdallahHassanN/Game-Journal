@@ -1,7 +1,6 @@
 package com.example.steamdbmockup.ui.presentation.AchievementsScreen
 
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -25,7 +24,6 @@ fun AchievementsScreen(
     LaunchedEffect(key1 = id, block = {
         viewModel.getGameAchievements(id)
     })
-    Log.v("AchievementsScreen", "AchievementsScreen $id and $count")
     Column(
         modifier = Modifier
             .background(Grey2)
