@@ -43,4 +43,7 @@ interface Repository {
 
     suspend fun getGameAchievements(id: Int)
             : Flow<Resource<Achievements>>
+
+    suspend fun getTopRatedGames(page: Int)
+            : Flow<Resource<GameResponse>>
 }

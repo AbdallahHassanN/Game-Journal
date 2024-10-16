@@ -1,6 +1,7 @@
 package com.example.steamdbmockup.ui.presentation.MainScreen
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -92,6 +93,11 @@ fun MainScreen(
                                 },
                                 selected = index == selectedItemIndex,
                                 onClick = {
+                                    Log.v(
+                                        "Navigation", "Clicked ${item.route} and " +
+                                                "${Screens.TopRatedGamesScreen}"
+                                    )
+//                                    navController.navigate(item.route)
                                     selectedItemIndex = index
                                     scope.launch {
                                         drawerState.close()
@@ -119,7 +125,7 @@ fun MainScreen(
                     TopAppBar(
                         title = {
                             TextTitle(
-                                text = stringResource(id = R.string.trending_games),
+                                text = stringResource(id = R.string.app_name),
                                 modifier = Modifier
                                     .padding(10.dp),
                                 fontSize = 20,

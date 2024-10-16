@@ -19,13 +19,8 @@ sealed class Screens(val route:String) {
     object MostAnticipatedScreen
     @Serializable
     object HighlyRatedScreen
-
-    fun withArgs(vararg args:Int):String {
-        return buildString {
-            append(route)
-            args.forEach {
-                append("/$it")
-            }
-        }
-    }
+    @Serializable
+    object TopRatedGamesScreen
+    @Serializable
+    object TopThisYear
 }

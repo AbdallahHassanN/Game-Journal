@@ -12,12 +12,16 @@ import com.example.steamdbmockup.ui.presentation.HighlyRatedGames.HighlyRatedGam
 import com.example.steamdbmockup.ui.presentation.MainScreen.MainScreen
 import com.example.steamdbmockup.ui.presentation.MostAnticipatedGames.MostAnticipatedScreen
 import com.example.steamdbmockup.ui.presentation.SearchScreen.SearchScreen
+import com.example.steamdbmockup.ui.presentation.TopRatedGamesScreen.TopRatedGamesScreen
 import com.example.steamdbmockup.ui.presentation.TrendingScreen.TrendingScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screens.MainScreen) {
+    NavHost(
+        navController = navController,
+        startDestination = Screens.MainScreen
+    ) {
         composable<Screens.MainScreen> {
             MainScreen(navController = navController)
         }
@@ -26,7 +30,7 @@ fun Navigation() {
         }
         composable<Screens.DetailScreen> {
             val args = it.toRoute<Screens.DetailScreen>()
-            DetailScreen(id = args.id.toInt(),navController = navController)
+            DetailScreen(id = args.id.toInt(), navController = navController)
         }
         composable<Screens.DeveloperScreen> {
             val args = it.toRoute<Screens.DeveloperScreen>()
@@ -34,16 +38,22 @@ fun Navigation() {
         }
         composable<Screens.AchievementsScreen> {
             val args = it.toRoute<Screens.AchievementsScreen>()
-            AchievementsScreen(id = args.id.toInt(),count = args.count)
+            AchievementsScreen(id = args.id.toInt(), count = args.count)
         }
-        composable<Screens.TrendingScreen>{
+        composable<Screens.TrendingScreen> {
             TrendingScreen(navController = navController)
         }
-        composable<Screens.MostAnticipatedScreen>{
+        composable<Screens.MostAnticipatedScreen> {
             MostAnticipatedScreen(navController = navController)
         }
-        composable<Screens.HighlyRatedScreen>{
+        composable<Screens.HighlyRatedScreen> {
             HighlyRatedGamesScreen(navController = navController)
+        }
+        composable<Screens.TopRatedGamesScreen> {
+            TopRatedGamesScreen(navController = navController)
+        }
+        composable<Screens.TopThisYear> {
+//            TopRatedGamesScreen(navController = navController)
         }
     }
 }

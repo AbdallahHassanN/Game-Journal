@@ -175,4 +175,20 @@ class Repository_Impl(
             }
         }
     }
+
+    override suspend fun getTopRatedGames(page: Int): Flow<Resource<GameResponse>> {
+        return try {
+            val response = gameService.getTopRatedGames(page = page)
+            handleResponse(response, appContext)
+        } catch (e: UnknownHostException) {
+            flow {
+                emit(Resource.Error("No internet connection"))
+            }
+        } catch (e: Exception) {
+            flow {
+                emit(Resource.Error("An unexpected error occurred"))
+            }
+        }
+    }
+
 }

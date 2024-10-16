@@ -29,10 +29,10 @@ class HighlyRatedScreenViewModel
     var page = 1
 
     init {
-        getTrendingGames()
+        getHighlyRatedGames()
     }
 
-    private fun getTrendingGames() = viewModelScope.launch {
+    private fun getHighlyRatedGames() = viewModelScope.launch {
         HighlyRatedGamesLoading.value = true
         getHighRatedGamesUseCase.execute(
             formattedDate,
@@ -57,7 +57,7 @@ class HighlyRatedScreenViewModel
 
     fun incrementPage() {
         ++page
-        getTrendingGames()
+        getHighlyRatedGames()
     }
 }
 
