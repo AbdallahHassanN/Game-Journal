@@ -60,7 +60,7 @@ fun TopBar(navController: NavController){
                 )
 
                 IconButton(onClick = {
-                    navController.navigate(Screens.SearchScreen.route)
+                    navController.navigate(Screens.SearchScreen)
                 },
                     ) {
                     Icon(painter = painterResource(id = R.drawable.search),

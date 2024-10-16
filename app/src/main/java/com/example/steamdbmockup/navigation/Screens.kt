@@ -7,12 +7,18 @@ sealed class Screens(val route:String) {
     object MainScreen
     @Serializable
     data class DetailScreen(val id:String)
-    object SearchScreen : Screens("searchScreen")
-    object DeveloperScreen : Screens("developerScreen")
-    object AchievementsScreen : Screens("achievementsScreen")
-    object TrendingScreen : Screens("trendingScreen")
-    object MostAnticipatedScreen : Screens("mostAnticipatedScreen")
-    object HighlyRatedScreen : Screens("highlyRatedScreen")
+    @Serializable
+    object SearchScreen
+    @Serializable
+    data class DeveloperScreen(val id:String)
+    @Serializable
+    data class AchievementsScreen(val id:String,val count:Int)
+    @Serializable
+    object TrendingScreen
+    @Serializable
+    object MostAnticipatedScreen
+    @Serializable
+    object HighlyRatedScreen
 
     fun withArgs(vararg args:Int):String {
         return buildString {

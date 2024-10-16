@@ -21,7 +21,6 @@ import com.example.steamdbmockup.common.CircularProgressBar
 import com.example.steamdbmockup.common.RowGameCard
 import com.example.steamdbmockup.common.TextTitle
 import com.example.steamdbmockup.common.TopBar
-import com.example.steamdbmockup.ui.presentation.DetailScreen.DetailScreen
 import com.example.steamdbmockup.ui.theme.Blue500
 import com.example.steamdbmockup.ui.theme.Grey2
 
@@ -60,7 +59,10 @@ fun MainScreen(
                     text = stringResource(id = R.string.show_more),
                     modifier = Modifier
                         .padding(10.dp)
-                        .clickable { navController.navigate(Screens.TrendingScreen.route) },
+                        .clickable {
+                            navController
+                                .navigate(Screens.TrendingScreen)
+                        },
                     fontSize = 20,
                     color = Blue500
                 )
@@ -73,7 +75,6 @@ fun MainScreen(
                         items = trendingGames
                     ) { _, game ->
                         RowGameCard(game = game, onClick = {
-//                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
                             navController.navigate(
                                 Screens.DetailScreen(id = game.id.toString())
                             )
@@ -96,7 +97,8 @@ fun MainScreen(
                     text = stringResource(id = R.string.show_more),
                     modifier = Modifier
                         .padding(10.dp)
-                        .clickable { navController.navigate(Screens.MostAnticipatedScreen.route) },
+                        .clickable { navController
+                            .navigate(Screens.MostAnticipatedScreen) },
                     fontSize = 20,
                     color = Blue500
                 )
@@ -109,7 +111,6 @@ fun MainScreen(
                         items = mostAnticipatedGames
                     ) { _, game ->
                         RowGameCard(game = game, onClick = {
-//                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
                             navController.navigate(
                                 Screens.DetailScreen(id = game.id.toString())
                             )
@@ -132,7 +133,8 @@ fun MainScreen(
                     text = stringResource(id = R.string.show_more),
                     modifier = Modifier
                         .padding(10.dp)
-                        .clickable { navController.navigate(Screens.HighlyRatedScreen.route) },
+                        .clickable { navController
+                            .navigate(Screens.HighlyRatedScreen) },
                     fontSize = 20,
                     color = Blue500
                 )
@@ -145,7 +147,6 @@ fun MainScreen(
                         items = highRatedGames
                     ) { _, game ->
                         RowGameCard(game = game, onClick = {
-//                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
                             navController.navigate(
                                 Screens.DetailScreen(id = game.id.toString())
                             )
