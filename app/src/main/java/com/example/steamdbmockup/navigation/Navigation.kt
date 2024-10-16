@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.example.steamdbmockup.common.Constants.Count
 import com.example.steamdbmockup.common.Constants.Developer_ID
 import com.example.steamdbmockup.common.Constants.GAME_ID
@@ -21,23 +22,16 @@ import com.example.steamdbmockup.ui.presentation.TrendingScreen.TrendingScreen
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screens.MainScreen.route) {
-        composable(route = Screens.MainScreen.route) {
+    NavHost(navController = navController, startDestination = Screens.MainScreen) {
+        composable<Screens.MainScreen> {
             MainScreen(navController = navController)
         }
         composable(route = Screens.SearchScreen.route) {
             SearchScreen(navController = navController)
         }
-        composable(
-            route = Screens.DetailScreen.route + "/{${GAME_ID}}",
-            arguments = listOf(navArgument(GAME_ID) {
-                type = NavType.IntType
-            })
-        ) {
-            DetailScreen(
-                id = it.arguments!!
-                    .getInt(GAME_ID), navController = navController
-            )
+        composable<Screens.DetailScreen> {
+            val args = it.toRoute<Screens.DetailScreen>()
+            DetailScreen(id = args.id.toInt(),navController = navController)
         }
         composable(
             route = Screens.DeveloperScreen.route + "/{${Developer_ID}}",

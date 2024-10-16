@@ -117,7 +117,6 @@ fun SearchAppBar(
                         keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Search,
                         capitalization = KeyboardCapitalization.Sentences,
-                        autoCorrect = true
                     ),
                     leadingIcon = {
                         Icon(

@@ -42,7 +42,7 @@ fun ColumnGameList(
             ) { index, game ->
                 ColumnGameCard(game = game, onClick = {
                     if (game.id != null) {
-                        navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                        navController.navigate(Screens.DetailScreen(id = game.id.toString()))
                     } else {
                         Log.d(TAG, "Error")
                     }

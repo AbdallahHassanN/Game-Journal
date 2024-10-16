@@ -82,7 +82,9 @@ fun DetailScreen(
                                 items = seriesGames
                             ) { _, game ->
                                 RowGameCard(game = game, onClick = {
-                                    navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                                    navController.navigate(
+                                        Screens.DetailScreen(id = game.id.toString())
+                                    )
                                 })
                             }
                         }

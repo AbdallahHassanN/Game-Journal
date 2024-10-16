@@ -1,8 +1,12 @@
 package com.example.navapp
 
+import kotlinx.serialization.Serializable
+
 sealed class Screens(val route:String) {
-    object MainScreen : Screens("mainScreen")
-    object DetailScreen : Screens("detailScreen")
+    @Serializable
+    object MainScreen
+    @Serializable
+    data class DetailScreen(val id:String)
     object SearchScreen : Screens("searchScreen")
     object DeveloperScreen : Screens("developerScreen")
     object AchievementsScreen : Screens("achievementsScreen")

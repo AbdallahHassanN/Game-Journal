@@ -21,6 +21,7 @@ import com.example.steamdbmockup.common.CircularProgressBar
 import com.example.steamdbmockup.common.RowGameCard
 import com.example.steamdbmockup.common.TextTitle
 import com.example.steamdbmockup.common.TopBar
+import com.example.steamdbmockup.ui.presentation.DetailScreen.DetailScreen
 import com.example.steamdbmockup.ui.theme.Blue500
 import com.example.steamdbmockup.ui.theme.Grey2
 
@@ -72,7 +73,10 @@ fun MainScreen(
                         items = trendingGames
                     ) { _, game ->
                         RowGameCard(game = game, onClick = {
-                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+//                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                            navController.navigate(
+                                Screens.DetailScreen(id = game.id.toString())
+                            )
                         })
                     }
                 }
@@ -105,7 +109,10 @@ fun MainScreen(
                         items = mostAnticipatedGames
                     ) { _, game ->
                         RowGameCard(game = game, onClick = {
-                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+//                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                            navController.navigate(
+                                Screens.DetailScreen(id = game.id.toString())
+                            )
                         })
                     }
                 }
@@ -138,7 +145,10 @@ fun MainScreen(
                         items = highRatedGames
                     ) { _, game ->
                         RowGameCard(game = game, onClick = {
-                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+//                            navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                            navController.navigate(
+                                Screens.DetailScreen(id = game.id.toString())
+                            )
                         })
                     }
                 }

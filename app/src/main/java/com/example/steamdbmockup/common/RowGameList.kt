@@ -30,14 +30,11 @@ fun RowGameList(
                 items = gameList
             ){ index,game ->
                 RowGameCard(game = game, onClick = {
-                    navController.navigate(Screens.DetailScreen.withArgs(game.id))
+                    navController.navigate(
+                        Screens.DetailScreen(id = game.id.toString())
+                    )
                 })
             }
-            /*for (game in gameList) {
-                RowGameCard(game = game, onClick = {
-                    navController.navigate(Screens.DetailScreen.withArgs(game.id))
-                })
-            }*/
         }
     }
 }
