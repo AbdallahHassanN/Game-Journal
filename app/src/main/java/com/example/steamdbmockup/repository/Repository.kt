@@ -19,7 +19,8 @@ interface Repository {
             : Flow<Resource<GameResponse>>
 
     suspend fun getHighRatedGames(
-        dates: String
+        dates: String,
+        page: Int
     ): Flow<Resource<GameResponse>>
 
     suspend fun getByName(query: String, page: Int)

@@ -51,10 +51,11 @@ class Repository_Impl(
 
 
     override suspend fun getHighRatedGames(
-        dates: String
+        dates: String,
+        page: Int
     ): Flow<Resource<GameResponse>> {
         return try {
-            val response = gameService.getHighRatedGames(dates)
+            val response = gameService.getHighRatedGames(dates,page)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {

@@ -16,9 +16,11 @@ class GetHighRatedGamesUseCase
     @ApplicationContext private val context: Context
 ) {
     suspend fun execute(
-        dates:String
+        dates:String,
+        page:Int
     )  = repo.getHighRatedGames(
-        dates = dates
+        dates = dates,
+        page
     ).flatMapConcat { highRatedGames ->
             when(highRatedGames)  {
                 is Resource.Error -> {

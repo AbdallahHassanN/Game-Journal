@@ -91,7 +91,8 @@ class MainScreenViewModel
     private fun getHighRatedGames() = viewModelScope.launch {
         highRatedLoading.value = true
         getHighRatedGamesUseCase.execute(
-            formattedDate
+            formattedDate,
+            1
         ).catch {
             Log.d(TAG,"Error ${it.message}")
         }.collect{ response ->

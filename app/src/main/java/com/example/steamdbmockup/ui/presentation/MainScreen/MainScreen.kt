@@ -115,9 +115,19 @@ fun MainScreen(
             Row {
                 TextTitle(
                     text = stringResource(id = R.string.high_rated_games),
-                    modifier = Modifier.padding(10.dp),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .weight(0.9F),
                     fontSize = 20,
                     color = Color.White
+                )
+                TextTitle(
+                    text = stringResource(id = R.string.show_more),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clickable { navController.navigate(Screens.HighlyRatedScreen.route) },
+                    fontSize = 20,
+                    color = Blue500
                 )
             }
             LazyRow {
