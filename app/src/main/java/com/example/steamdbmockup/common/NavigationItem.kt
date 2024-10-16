@@ -5,21 +5,21 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.navapp.Screens
 
-data class NavigationItem(
+data class NavigationItem<T:Any>(
     val title: String,
     val icon: ImageVector,
-    val route: String
+    val route: T
 )
 
 val navigationItems = listOf(
     NavigationItem(
         title = "Top 250 Games",
         icon = Icons.Default.Favorite,
-        route = Screens.TopRatedGamesScreen.toString().trim()
+        route = Screens.TopRatedGamesScreen
     ),
-    NavigationItem(
+    /*NavigationItem(
         title = "Popular this year",
         icon = Icons.Default.Favorite,
-        route = Screens.TopThisYear.toString()
-    )
+        route = Screens.TopThisYear
+    )*/
 )

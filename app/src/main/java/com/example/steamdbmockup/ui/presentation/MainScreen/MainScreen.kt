@@ -93,11 +93,7 @@ fun MainScreen(
                                 },
                                 selected = index == selectedItemIndex,
                                 onClick = {
-                                    Log.v(
-                                        "Navigation", "Clicked ${item.route} and " +
-                                                "${Screens.TopRatedGamesScreen}"
-                                    )
-//                                    navController.navigate(item.route)
+                                    navController.navigate(item.route)
                                     selectedItemIndex = index
                                     scope.launch {
                                         drawerState.close()
