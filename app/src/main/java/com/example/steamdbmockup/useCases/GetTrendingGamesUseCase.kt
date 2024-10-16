@@ -16,8 +16,9 @@ class GetTrendingGamesUseCase
     @ApplicationContext private val context: Context
 ) {
     suspend fun execute(
-        dates:String
-    )  = repo.getTrendingGames(dates)
+        dates:String,
+        page:Int
+    )  = repo.getTrendingGames(dates,page)
         .flatMapConcat { trendingGames ->
             when(trendingGames)  {
                 is Resource.Error -> {
@@ -30,9 +31,6 @@ class GetTrendingGamesUseCase
                 }
                 is Resource.Success -> {
                     Log.d(TAG,"UseCase Success ? ${trendingGames.data!!.games}")
-                    /*flowOf(Resource.Success(it.data.games.map {
-                        it.map()
-                    }))*/
                     flowOf(Resource.Success(trendingGames.data.games))
                 }
             }

@@ -21,6 +21,7 @@ interface GameService {
     @GET(authToken)
     suspend fun getTrendingGames(
         @Query("dates") dates:String,
+        @Query("page") page: Int
         ): Response<GameResponse>
 
     @GET(authToken+Most_Anticipated_Games)

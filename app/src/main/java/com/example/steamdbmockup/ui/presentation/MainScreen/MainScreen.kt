@@ -1,6 +1,7 @@
 package com.example.steamdbmockup.ui.presentation.MainScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ import com.example.steamdbmockup.common.CircularProgressBar
 import com.example.steamdbmockup.common.RowGameCard
 import com.example.steamdbmockup.common.TextTitle
 import com.example.steamdbmockup.common.TopBar
+import com.example.steamdbmockup.ui.theme.Blue500
 import com.example.steamdbmockup.ui.theme.Grey2
 
 @Composable
@@ -44,12 +46,24 @@ fun MainScreen(
             TopBar(navController)
         }
         item {
-            TextTitle(
-                text = stringResource(id = R.string.trending_games),
-                modifier = Modifier.padding(10.dp),
-                fontSize = 20,
-                color = Color.White
-            )
+            Row {
+                TextTitle(
+                    text = stringResource(id = R.string.trending_games),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .weight(0.9F),
+                    fontSize = 20,
+                    color = Color.White
+                )
+                TextTitle(
+                    text = "Show More",
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clickable { navController.navigate(Screens.TrendingScreen.route) },
+                    fontSize = 20,
+                    color = Blue500
+                )
+            }
             LazyRow {
                 if (trendingLoading) {
                     item { CircularProgressBar() }

@@ -44,7 +44,8 @@ class MainScreenViewModel
     private fun getTrendingGames() = viewModelScope.launch {
         trendingLoading.value = true
         getTrendingGamesUseCase.execute(
-            formattedDate
+            formattedDate,
+            1
         ).catch {
             Log.d(TAG,"Error ${it.message}")
         }.collect{ response ->

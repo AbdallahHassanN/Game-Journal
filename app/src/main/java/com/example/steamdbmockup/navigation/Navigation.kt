@@ -14,6 +14,7 @@ import com.example.steamdbmockup.ui.presentation.DetailScreen.DetailScreen
 import com.example.steamdbmockup.ui.presentation.DeveloperScreen.DeveloperScreen
 import com.example.steamdbmockup.ui.presentation.MainScreen.MainScreen
 import com.example.steamdbmockup.ui.presentation.SearchScreen.SearchScreen
+import com.example.steamdbmockup.ui.presentation.TrendingScreen.TrendingScreen
 
 @Composable
 fun Navigation() {
@@ -60,6 +61,13 @@ fun Navigation() {
                     .getInt(GAME_ID),
                 count = it.arguments!!
                     .getInt(Count)
+            )
+        }
+        composable(
+            route = Screens.TrendingScreen.route,
+        ) {
+            TrendingScreen(
+                navController = navController
             )
         }
     }

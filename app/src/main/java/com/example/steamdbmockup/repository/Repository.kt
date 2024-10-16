@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 interface Repository {
 
-    suspend fun getTrendingGames(dates: String)
+    suspend fun getTrendingGames(dates: String,page: Int)
             : Flow<Resource<GameResponse>>
 
     suspend fun getMostAnticipatedGames()
