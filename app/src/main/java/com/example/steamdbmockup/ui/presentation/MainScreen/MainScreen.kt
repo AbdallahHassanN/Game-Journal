@@ -56,7 +56,7 @@ fun MainScreen(
                     color = Color.White
                 )
                 TextTitle(
-                    text = "Show More",
+                    text = stringResource(id = R.string.show_more),
                     modifier = Modifier
                         .padding(10.dp)
                         .clickable { navController.navigate(Screens.TrendingScreen.route) },
@@ -82,9 +82,19 @@ fun MainScreen(
             Row {
                 TextTitle(
                     text = stringResource(id = R.string.most_anticipated_games),
-                    modifier = Modifier.padding(10.dp),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .weight(0.9F),
                     fontSize = 20,
                     color = Color.White
+                )
+                TextTitle(
+                    text = stringResource(id = R.string.show_more),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .clickable { navController.navigate(Screens.MostAnticipatedScreen.route) },
+                    fontSize = 20,
+                    color = Blue500
                 )
             }
             LazyRow {

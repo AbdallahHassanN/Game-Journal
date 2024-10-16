@@ -15,7 +15,7 @@ interface Repository {
     suspend fun getTrendingGames(dates: String,page: Int)
             : Flow<Resource<GameResponse>>
 
-    suspend fun getMostAnticipatedGames()
+    suspend fun getMostAnticipatedGames(page: Int)
             : Flow<Resource<GameResponse>>
 
     suspend fun getHighRatedGames(

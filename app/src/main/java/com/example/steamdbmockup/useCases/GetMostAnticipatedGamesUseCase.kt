@@ -15,7 +15,8 @@ class GetMostAnticipatedGamesUseCase
     private val repo: Repository,
     @ApplicationContext private val context: Context) {
     suspend fun execute(
-    )  = repo.getMostAnticipatedGames()
+        page:Int
+    )  = repo.getMostAnticipatedGames(page)
         .flatMapConcat { it ->
             when(it)  {
                 is Resource.Error -> {
@@ -28,9 +29,7 @@ class GetMostAnticipatedGamesUseCase
                 }
                 is Resource.Success -> {
                     Log.d(Constants.TAG,"UseCase Success ? ${it.data!!.games}")
-                    /*flowOf(Resource.Success(it.data.games.map {
-                        it.map()
-                    }))*/
+
                     flowOf(Resource.Success(it.data.games))
                 }
             }

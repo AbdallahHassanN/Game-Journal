@@ -25,7 +25,9 @@ interface GameService {
         ): Response<GameResponse>
 
     @GET(authToken+Most_Anticipated_Games)
-    suspend fun getMostAnticipatedGames(): Response<GameResponse>
+    suspend fun getMostAnticipatedGames(
+        @Query("page") page: Int
+    ): Response<GameResponse>
 
     @GET(authToken)
     suspend fun getHighRatedGames(

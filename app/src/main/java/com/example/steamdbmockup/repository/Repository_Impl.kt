@@ -34,9 +34,9 @@ class Repository_Impl(
     }
 
 
-    override suspend fun getMostAnticipatedGames(): Flow<Resource<GameResponse>> {
+    override suspend fun getMostAnticipatedGames(page: Int): Flow<Resource<GameResponse>> {
         return try {
-            val response = gameService.getMostAnticipatedGames()
+            val response = gameService.getMostAnticipatedGames(page)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {

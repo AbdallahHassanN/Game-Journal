@@ -7,6 +7,7 @@ sealed class Screens(val route:String) {
     object DeveloperScreen : Screens("developerScreen")
     object AchievementsScreen : Screens("achievementsScreen")
     object TrendingScreen : Screens("trendingScreen")
+    object MostAnticipatedScreen : Screens("mostAnticipatedScreen")
 
     fun withArgs(vararg args:Int):String {
         return buildString {

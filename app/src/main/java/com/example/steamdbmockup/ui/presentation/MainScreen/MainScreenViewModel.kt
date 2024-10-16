@@ -69,6 +69,7 @@ class MainScreenViewModel
     ) = viewModelScope.launch {
         mostAnticipatedLoading.value = true
         getMostAnticipatedGamesUseCase.execute(
+            page = 1
         ).catch {
             Log.d(TAG,"Error ${it.message}")
         }.collect{ response ->

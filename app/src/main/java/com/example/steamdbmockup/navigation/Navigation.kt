@@ -13,6 +13,7 @@ import com.example.steamdbmockup.ui.presentation.AchievementsScreen.Achievements
 import com.example.steamdbmockup.ui.presentation.DetailScreen.DetailScreen
 import com.example.steamdbmockup.ui.presentation.DeveloperScreen.DeveloperScreen
 import com.example.steamdbmockup.ui.presentation.MainScreen.MainScreen
+import com.example.steamdbmockup.ui.presentation.MostAnticipatedGames.MostAnticipatedScreen
 import com.example.steamdbmockup.ui.presentation.SearchScreen.SearchScreen
 import com.example.steamdbmockup.ui.presentation.TrendingScreen.TrendingScreen
 
@@ -67,6 +68,13 @@ fun Navigation() {
             route = Screens.TrendingScreen.route,
         ) {
             TrendingScreen(
+                navController = navController
+            )
+        }
+        composable(
+            route = Screens.MostAnticipatedScreen.route,
+        ) {
+            MostAnticipatedScreen(
                 navController = navController
             )
         }
