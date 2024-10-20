@@ -13,8 +13,8 @@ fun MostAnticipatedScreen(
     viewModel: MostAnticipatedScreenViewModel = hiltViewModel()
 ) {
 
-    val trendingGames = viewModel.MostAnticipatedGames.value
-    val loading = viewModel.MostAnticipatedGamesLoading.value
+    val trendingGames = viewModel.mostAnticipatedGames.value
+    val loading = viewModel.mostAnticipatedGamesLoading.value
     val listState = rememberLazyListState()
 
     Scaffold { it ->

@@ -1,6 +1,8 @@
 package com.example.steamdbmockup.ui.presentation.TrendingScreen
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -15,15 +17,16 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class TrendingScreenViewModel
 @Inject constructor(
     private val getTrendingGamesUseCase: GetTrendingGamesUseCase,
 ) : ViewModel() {
 
-    val TrendingGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val trendingGames: MutableState<List<Result>> = mutableStateOf(listOf())
 
-    val formattedDate = DateUtils.getDateRangeFromStartOfYear()
+    private val formattedDate = DateUtils.getDateRangeFromStartOfYear()
 
     val trendingLoading = mutableStateOf(false)
     var page = 1
@@ -48,7 +51,7 @@ class TrendingScreenViewModel
                 }
 
                 is Resource.Success -> {
-                    TrendingGames.value += response.data!!
+                    trendingGames.value += response.data!!
                     trendingLoading.value = false
                 }
             }

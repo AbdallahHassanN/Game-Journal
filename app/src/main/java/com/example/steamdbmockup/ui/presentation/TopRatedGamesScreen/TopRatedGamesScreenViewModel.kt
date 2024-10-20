@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.steamdbmockup.common.Constants.TAG
-import com.example.steamdbmockup.common.DateUtils
 import com.example.steamdbmockup.model.Result
 import com.example.steamdbmockup.network.response.Resource
 import com.example.steamdbmockup.useCases.GetTopRatedGamesUseCase
@@ -21,9 +20,9 @@ class TopRatedGamesScreenViewModel
     private val getTopRatedGamesUseCase: GetTopRatedGamesUseCase,
 ) : ViewModel() {
 
-    val TopRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val topRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
 
-    val TopRatedGamesLoading = mutableStateOf(false)
+    val topRatedGamesLoading = mutableStateOf(false)
     var page = 1
 
     init {
@@ -31,7 +30,7 @@ class TopRatedGamesScreenViewModel
     }
 
     private fun getTopRatedGames() = viewModelScope.launch {
-        TopRatedGamesLoading.value = true
+        topRatedGamesLoading.value = true
         getTopRatedGamesUseCase.execute(
             page
         ).catch {
@@ -40,13 +39,13 @@ class TopRatedGamesScreenViewModel
             when (response) {
                 is Resource.Error -> Log.d(TAG, "Error response")
                 is Resource.Loading -> {
-                    TopRatedGamesLoading.value = true
+                    topRatedGamesLoading.value = true
                     Log.d(TAG, "Loading")
                 }
 
                 is Resource.Success -> {
-                    TopRatedGames.value += response.data!!
-                    TopRatedGamesLoading.value = false
+                    topRatedGames.value += response.data!!
+                    topRatedGamesLoading.value = false
                 }
             }
         }

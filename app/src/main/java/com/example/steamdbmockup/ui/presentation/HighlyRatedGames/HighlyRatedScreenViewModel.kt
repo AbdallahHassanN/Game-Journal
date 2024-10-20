@@ -24,11 +24,11 @@ class HighlyRatedScreenViewModel
     private val getHighRatedGamesUseCase: GetHighRatedGamesUseCase,
 ) : ViewModel() {
 
-    val HighlyRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val highlyRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
 
-    val formattedDate = DateUtils.getDateRangeFromStartOf2019()
+    private val formattedDate = DateUtils.getDateRangeFromStartOf2019()
 
-    val HighlyRatedGamesLoading = mutableStateOf(false)
+    val highlyRatedGamesLoading = mutableStateOf(false)
     var page = 1
 
     init {
@@ -36,7 +36,7 @@ class HighlyRatedScreenViewModel
     }
 
     private fun getHighlyRatedGames() = viewModelScope.launch {
-        HighlyRatedGamesLoading.value = true
+        highlyRatedGamesLoading.value = true
         getHighRatedGamesUseCase.execute(
             formattedDate,
             page
@@ -46,13 +46,13 @@ class HighlyRatedScreenViewModel
             when (response) {
                 is Resource.Error -> Log.d(TAG, "Error response")
                 is Resource.Loading -> {
-                    HighlyRatedGamesLoading.value = true
+                    highlyRatedGamesLoading.value = true
                     Log.d(TAG, "Loading")
                 }
 
                 is Resource.Success -> {
-                    HighlyRatedGames.value += response.data!!
-                    HighlyRatedGamesLoading.value = false
+                    highlyRatedGames.value += response.data!!
+                    highlyRatedGamesLoading.value = false
                 }
             }
         }

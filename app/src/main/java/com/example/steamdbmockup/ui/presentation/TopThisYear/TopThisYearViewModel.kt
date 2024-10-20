@@ -24,10 +24,10 @@ class TopThisYearViewModel
     private val getTopThisYearGamesUseCase: GetTopThisYearGamesUseCase,
 ) : ViewModel() {
 
-    val TopThisYearGames: MutableState<List<Result>> = mutableStateOf(listOf())
-    val formattedDate = DateUtils.getDateRangeFromStartOfYear()
+    val topThisYearGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    private val formattedDate = DateUtils.getDateRangeFromStartOfYear()
 
-    val TopThisYearGamesLoading = mutableStateOf(false)
+    val topThisYearGamesLoading = mutableStateOf(false)
     var page = 1
 
     init {
@@ -35,7 +35,7 @@ class TopThisYearViewModel
     }
 
     private fun getTopThisYearGames() = viewModelScope.launch {
-        TopThisYearGamesLoading.value = true
+        topThisYearGamesLoading.value = true
         getTopThisYearGamesUseCase.execute(
             page = page,
             dates = formattedDate
@@ -45,13 +45,13 @@ class TopThisYearViewModel
             when (response) {
                 is Resource.Error -> Log.d(TAG, "Error response")
                 is Resource.Loading -> {
-                    TopThisYearGamesLoading.value = true
+                    topThisYearGamesLoading.value = true
                     Log.d(TAG, "Loading")
                 }
 
                 is Resource.Success -> {
-                    TopThisYearGames.value += response.data!!
-                    TopThisYearGamesLoading.value = false
+                    topThisYearGames.value += response.data!!
+                    topThisYearGamesLoading.value = false
                 }
             }
         }

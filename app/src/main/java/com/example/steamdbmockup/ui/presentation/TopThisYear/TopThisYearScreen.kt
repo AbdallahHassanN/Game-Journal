@@ -15,14 +15,14 @@ fun TopThisYearScreen(
     navController: NavController,
     viewModel: TopThisYearViewModel = hiltViewModel()
 ) {
-    val TopThisYearGames = viewModel.TopThisYearGames.value
-    val loading = viewModel.TopThisYearGamesLoading.value
+    val topThisYearGames = viewModel.topThisYearGames.value
+    val loading = viewModel.topThisYearGamesLoading.value
     val listState = rememberLazyListState()
 
     Scaffold { it ->
         ColumnGameList(
             loading = loading,
-            games = TopThisYearGames,
+            games = topThisYearGames,
             it = it,
             navController = navController,
             loadMore = { viewModel.incrementPage() },

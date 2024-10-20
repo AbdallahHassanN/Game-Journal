@@ -15,8 +15,8 @@ fun HighlyRatedGamesScreen(
     navController: NavController,
     viewModel: HighlyRatedScreenViewModel = hiltViewModel()
 ) {
-    val highlyRatedGames = viewModel.HighlyRatedGames.value
-    val loading = viewModel.HighlyRatedGamesLoading.value
+    val highlyRatedGames = viewModel.highlyRatedGames.value
+    val loading = viewModel.highlyRatedGamesLoading.value
     val listState = rememberLazyListState()
 
     Scaffold { it ->

@@ -1,6 +1,8 @@
 package com.example.steamdbmockup.ui.presentation.MainScreen
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -25,11 +27,12 @@ class MainScreenViewModel
     private val getHighRatedGamesUseCase: GetHighRatedGamesUseCase
 ): ViewModel() {
 
-    val TrendingGames: MutableState<List<Result>> = mutableStateOf(listOf())
-    val MostAnticipatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
-    val HighRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val trendingGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val mostAnticipatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val highRatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
 
-    val formattedDate = DateUtils.getDateRangeFromStartOfYear()
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val formattedDate = DateUtils.getDateRangeFromStartOfYear()
 
     val trendingLoading = mutableStateOf(false)
     val mostAnticipatedLoading = mutableStateOf(false)
@@ -56,8 +59,8 @@ class MainScreenViewModel
                     Log.d(TAG, "Loading")
                 }
                 is Resource.Success -> {
-                    TrendingGames.value = response.data!!
-                    Log.d(TAG, "dataView ${TrendingGames.value}")
+                    trendingGames.value = response.data!!
+                    Log.d(TAG, "dataView ${trendingGames.value}")
                     trendingLoading.value = false
                 }
             }
@@ -80,8 +83,8 @@ class MainScreenViewModel
                     Log.d(TAG, "Loading")
                 }
                 is Resource.Success -> {
-                    MostAnticipatedGames.value = response.data!!
-                    Log.d(TAG, "dataView ${MostAnticipatedGames.value}")
+                    mostAnticipatedGames.value = response.data!!
+                    Log.d(TAG, "dataView ${mostAnticipatedGames.value}")
                     mostAnticipatedLoading.value = false
                 }
             }
@@ -103,8 +106,8 @@ class MainScreenViewModel
                     Log.d(TAG, "Loading")
                 }
                 is Resource.Success -> {
-                    HighRatedGames.value = response.data!!
-                    Log.d(TAG, "dataView ${HighRatedGames.value}")
+                    highRatedGames.value = response.data!!
+                    Log.d(TAG, "dataView ${highRatedGames.value}")
                     highRatedLoading.value = false
                 }
             }

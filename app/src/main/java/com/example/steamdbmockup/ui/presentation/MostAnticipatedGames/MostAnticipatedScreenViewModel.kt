@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.steamdbmockup.common.Constants.TAG
-import com.example.steamdbmockup.common.DateUtils
 import com.example.steamdbmockup.model.Result
 import com.example.steamdbmockup.network.response.Resource
 import com.example.steamdbmockup.useCases.GetMostAnticipatedGamesUseCase
@@ -21,9 +20,9 @@ class MostAnticipatedScreenViewModel
     private val getMostAnticipatedGamesUseCase: GetMostAnticipatedGamesUseCase,
 ) : ViewModel() {
 
-    val MostAnticipatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
+    val mostAnticipatedGames: MutableState<List<Result>> = mutableStateOf(listOf())
 
-    val MostAnticipatedGamesLoading = mutableStateOf(false)
+    val mostAnticipatedGamesLoading = mutableStateOf(false)
     var page = 1
 
     init {
@@ -31,7 +30,7 @@ class MostAnticipatedScreenViewModel
     }
 
     private fun getMostAnticipatedGames() = viewModelScope.launch {
-        MostAnticipatedGamesLoading.value = true
+        mostAnticipatedGamesLoading.value = true
         getMostAnticipatedGamesUseCase.execute(
             page
         ).catch {
@@ -40,13 +39,13 @@ class MostAnticipatedScreenViewModel
             when (response) {
                 is Resource.Error -> Log.d(TAG, "Error response")
                 is Resource.Loading -> {
-                    MostAnticipatedGamesLoading.value = true
+                    mostAnticipatedGamesLoading.value = true
                     Log.d(TAG, "Loading")
                 }
 
                 is Resource.Success -> {
-                    MostAnticipatedGames.value += response.data!!
-                    MostAnticipatedGamesLoading.value = false
+                    mostAnticipatedGames.value += response.data!!
+                    mostAnticipatedGamesLoading.value = false
                 }
             }
         }

@@ -1,7 +1,6 @@
 package com.example.steamdbmockup.ui.presentation.MainScreen
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -57,9 +56,9 @@ fun MainScreen(
     navController: NavController,
     viewModel: MainScreenViewModel = hiltViewModel()
 ) {
-    val trendingGames = viewModel.TrendingGames.value
-    val mostAnticipatedGames = viewModel.MostAnticipatedGames.value
-    val highRatedGames = viewModel.HighRatedGames.value
+    val trendingGames = viewModel.trendingGames.value
+    val mostAnticipatedGames = viewModel.mostAnticipatedGames.value
+    val highRatedGames = viewModel.highRatedGames.value
     val trendingLoading = viewModel.trendingLoading.value
     val mostAnticipatedLoading = viewModel.mostAnticipatedLoading.value
     val highRatedLoading = viewModel.highRatedLoading.value
