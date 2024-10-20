@@ -32,7 +32,7 @@ interface GameService {
     @GET(authToken)
     suspend fun getHighRatedGames(
         @Query("dates") dates: String,
-        @Query("oage") page: Int,
+        @Query("page") page: Int,
         @Query("ordering") ordering: String = "-rating"
     ): Response<GameResponse>
 
@@ -77,5 +77,12 @@ interface GameService {
     suspend fun getTopRatedGames(
         @Query("page") page: Int,
         @Query("ordering") ordering: String = "-metacritic"
+    ): Response<GameResponse>
+
+    @GET("games$key")
+    suspend fun getTopThisYearGames(
+        @Query("page") page: Int,
+        @Query("ordering") ordering: String = "-rating",
+        @Query("dates") dates: String,
     ): Response<GameResponse>
 }

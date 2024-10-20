@@ -1,4 +1,4 @@
-package com.example.steamdbmockup.ui.presentation.HighlyRatedGames
+package com.example.steamdbmockup.ui.presentation.TopThisYear
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -11,18 +11,18 @@ import com.example.recipescompose.presentation.components.ColumnGameList
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun HighlyRatedGamesScreen(
+fun TopThisYearScreen(
     navController: NavController,
-    viewModel: HighlyRatedScreenViewModel = hiltViewModel()
+    viewModel: TopThisYearViewModel = hiltViewModel()
 ) {
-    val highlyRatedGames = viewModel.HighlyRatedGames.value
-    val loading = viewModel.HighlyRatedGamesLoading.value
+    val TopThisYearGames = viewModel.TopThisYearGames.value
+    val loading = viewModel.TopThisYearGamesLoading.value
     val listState = rememberLazyListState()
 
     Scaffold { it ->
         ColumnGameList(
             loading = loading,
-            games = highlyRatedGames,
+            games = TopThisYearGames,
             it = it,
             navController = navController,
             loadMore = { viewModel.incrementPage() },

@@ -1,5 +1,7 @@
 package com.example.navapp
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,8 +15,10 @@ import com.example.steamdbmockup.ui.presentation.MainScreen.MainScreen
 import com.example.steamdbmockup.ui.presentation.MostAnticipatedGames.MostAnticipatedScreen
 import com.example.steamdbmockup.ui.presentation.SearchScreen.SearchScreen
 import com.example.steamdbmockup.ui.presentation.TopRatedGamesScreen.TopRatedGamesScreen
+import com.example.steamdbmockup.ui.presentation.TopThisYear.TopThisYearScreen
 import com.example.steamdbmockup.ui.presentation.TrendingScreen.TrendingScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -53,7 +57,7 @@ fun Navigation() {
             TopRatedGamesScreen(navController = navController)
         }
         composable<Screens.TopThisYear> {
-//            TopRatedGamesScreen(navController = navController)
+            TopThisYearScreen(navController = navController)
         }
     }
 }

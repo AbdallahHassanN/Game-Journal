@@ -18,9 +18,9 @@ class Repository_Impl(
     private val appContext: Context
 ) : Repository {
 
-    override suspend fun getTrendingGames(dates: String,page: Int): Flow<Resource<GameResponse>> {
+    override suspend fun getTrendingGames(dates: String, page: Int): Flow<Resource<GameResponse>> {
         return try {
-            val response = gameService.getTrendingGames(dates,page)
+            val response = gameService.getTrendingGames(dates, page)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {
@@ -55,7 +55,7 @@ class Repository_Impl(
         page: Int
     ): Flow<Resource<GameResponse>> {
         return try {
-            val response = gameService.getHighRatedGames(dates,page)
+            val response = gameService.getHighRatedGames(dates, page)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {
@@ -179,6 +179,24 @@ class Repository_Impl(
     override suspend fun getTopRatedGames(page: Int): Flow<Resource<GameResponse>> {
         return try {
             val response = gameService.getTopRatedGames(page = page)
+            handleResponse(response, appContext)
+        } catch (e: UnknownHostException) {
+            flow {
+                emit(Resource.Error("No internet connection"))
+            }
+        } catch (e: Exception) {
+            flow {
+                emit(Resource.Error("An unexpected error occurred"))
+            }
+        }
+    }
+
+    override suspend fun getTopThisYearGames(
+        page: Int,
+        dates: String
+    ): Flow<Resource<GameResponse>> {
+        return try {
+            val response = gameService.getTopThisYearGames(page = page, dates = dates)
             handleResponse(response, appContext)
         } catch (e: UnknownHostException) {
             flow {

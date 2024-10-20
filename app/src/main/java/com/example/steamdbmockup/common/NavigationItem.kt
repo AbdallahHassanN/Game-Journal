@@ -17,9 +17,9 @@ val navigationItems = listOf(
         icon = Icons.Default.Favorite,
         route = Screens.TopRatedGamesScreen
     ),
-    /*NavigationItem(
+    NavigationItem(
         title = "Popular this year",
         icon = Icons.Default.Favorite,
         route = Screens.TopThisYear
-    )*/
+    )
 )
